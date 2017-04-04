@@ -1,0 +1,3 @@
+EC.Tile = function() {
+	
+}

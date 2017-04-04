@@ -1,0 +1,102 @@
+@font-face {
+    font-family: 'Flappy';
+    src: url('../fonts/04B_19__.TTF');
+}
+
+body {
+    text-align: center;
+    background-color: black;
+}
+
+.hidden {
+    display: none;
+    visibility: hidden;
+}
+
+.game-container {
+    display: inline-block;
+    position: relative;
+    margin: 0 auto;
+    text-align: center;
+}
+
+#game-text {
+    font-family: "Flappy";
+    position: absolute;
+    top: 30%;
+    width: 100%;
+    text-align: center;
+    color: white;
+    font-size: 4rem;
+    -webkit-text-stroke-width: .4rem;
+    -webkit-text-stroke-color: rgb(82, 57, 74);
+
+    -webkit-user-select: none; /* Chrome/Safari */        
+    -moz-user-select: none; /* Firefox */
+    -ms-user-select: none; /* IE10+ */
+    
+    -o-user-select: none;
+    user-select: none;
+}
+
+#game-button {
+    display: inline-block;
+    /*background-color: rgba(82, 57, 74, .5);*/
+    position: absolute;
+    top: 60%;
+    left: 50%;
+    width: auto;
+    height: auto;
+
+    -webkit-user-select: none; /* Chrome/Safari */        
+    -moz-user-select: none; /* Firefox */
+    -ms-user-select: none; /* IE10+ */
+    
+    -o-user-select: none;
+    user-select: none;
+}
+
+#game-button img {
+    position: relative;
+    right: 50%;
+}
+
+#game-button img:active {
+    transform: scale(.9, .9);
+}
+
+.fps {
+    visibility: hidden;
+    position: absolute;
+    bottom: 0.5em;
+    right: 0.2em;
+    padding: 0.2em;
+    line-height: 1.4em;
+    background-color: #fff;
+    color: #000;
+    opacity: 0.5;
+    min-width: 2.8em;
+    white-space: nowrap;
+}
+#cvs {
+    image-rendering: optimizeSpeed;             /* Older versions of FF          */
+    image-rendering: -moz-crisp-edges;          /* FF 6.0+                       */
+    image-rendering: -webkit-optimize-contrast; /* Safari                        */
+    image-rendering: -o-crisp-edges;            /* OS X & Windows Opera (12.02+) */
+    image-rendering: pixelated;                 /* Awesome future-browsers       */
+    -ms-interpolation-mode: nearest-neighbor;   /* IE                            */
+}
+
+@media all and (max-width: 1200px) {
+
+    #game-button img  {
+        width: 150px;
+        height: 102px;
+    }
+
+    #game-text {
+        font-size: 2rem;
+        -webkit-text-stroke-width: .2rem;
+    }
+}
+
