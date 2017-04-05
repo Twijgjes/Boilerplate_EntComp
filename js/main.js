@@ -51,6 +51,7 @@ EC.Game = function(userSettings) {
   ];
   this.updateObjs = new Array();
   this.lateUpdateObjs = new Array();
+  this.colliders = new Array();
 
   // Gets me dat crisp look, aww yiss
   var smoothScalingEnabled = false;
@@ -84,11 +85,18 @@ EC.Game.prototype = {
     // var groundParallaxScroller = new EC.ParallaxScroller(EC.Ground, -300);
     // var pipeSpawner = new EC.PipeSpawner(-300);
     // this.punchBird = new EC.PunchBird();
+
+    // this.tileA = new EC.Tile();
+    this.tileChunk = new EC.TileChunk(64);
+    this.player = new EC.Creature();
+    this.playerController = new EC.KeyboardController({ puppet: this.player });
     
     this.pause = false;
     this.update();
     this.render();
     this.pause = true;
+
+    this.startGame();
 
   },
 
@@ -222,8 +230,13 @@ EC.Game.prototype = {
   },
 
   addDrawObj: function(obj, layer){
-    var _layer = (layer != null ? layer : 0);
-    this.drawLayers[_layer].push(obj);
+    // let _layer = (layer != null ? layer : 0);
+    this.drawLayers[layer || 0].push(obj);
+    if(obj.destroyFlag == undefined) obj["destroyFlag"] = false;
+  },
+
+  addCollider: function(obj){
+    this.colliders.push(obj);
     if(obj.destroyFlag == undefined) obj["destroyFlag"] = false;
   },
   
@@ -231,8 +244,8 @@ EC.Game.prototype = {
 
 EC.Vector2 = function(x,y) {
 
-  this.x = (x != null ? x : 0);
-  this.y = (y != null ? y : 0);
+  this.x = (x || 0);
+  this.y = (y || 0);
 
 }
 
@@ -250,9 +263,17 @@ EC.Vector2.prototype = {
     return this;
   },
 
+  // SCALARS only!
   scale: function(s) {
     this.x *= s;
     this.y *= s;
+    return this;
+  },
+
+  // THIS is what you use for vectors
+  multiply: function(v) {
+    this.x *= v.x;
+    this.y *= v.y;
     return this;
   },
 

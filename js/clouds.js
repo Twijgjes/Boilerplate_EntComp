@@ -5,7 +5,7 @@ EC.Clouds = function(position) {
   	entity: this,
   	position: (position != null ? position : new EC.Vector2(game.cvs.width, game.cvs.height*.75)), 
   	rotation: 0,
-  	scale: new EC.Vector2(game.globalScale, game.globalScale)
+  	scale: game.globalScale.clone();
   });
 
   this.prop = new EC.Prop({ 

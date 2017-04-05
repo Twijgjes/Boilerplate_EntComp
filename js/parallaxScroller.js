@@ -21,7 +21,7 @@ EC.ParallaxScroller.prototype = {
   	for( var i = this.objs.length - 1; i >= 0; i-- ){
       if( this.objs[i].transform.position.x < -game.cvs.width ){
       	var newObj = new this.SpawnObj();
-        newObj.transform.position.x = this.objs[i].transform.position.x + (this.objs[i].prop.dimensions.x * game.globalScale * 2) - 1;
+        newObj.transform.position.x = this.objs[i].transform.position.x + (this.objs[i].prop.dimensions.x * game.globalScale.x * 2) - 1;
       	newObj.body.velocity.x = this.scrollSpeed;
         this.objs[i].prop.destroyFlag = true;
         this.objs[i].body.destroyFlag = true;

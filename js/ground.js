@@ -5,7 +5,7 @@ EC.Ground = function() {
     entity: this, 
     position: new EC.Vector2(game.cvs.width/2, game.cvs.height*.95), 
     rotation: 0, 
-    scale: new EC.Vector2(game.globalScale,game.globalScale)
+    scale: game.globalScale.clone();
   });
 
   this.prop = new EC.Prop({

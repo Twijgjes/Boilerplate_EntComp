@@ -12,7 +12,7 @@ EC.CollisionManager = function(){
 EC.CollisionManager.prototype = {
 
   update: function(){
-  	var birdRadius = 40 * game.globalScale;
+  	var birdRadius = 40 * game.globalScale.x;
     
     for( var i = this.fistPickups.length - 1; i >= 0; i-- ){
       var fistRadius = (this.fistPickups[i].prop.dimensions.x * this.fistPickups[i].transform.scale.x) / 2;
