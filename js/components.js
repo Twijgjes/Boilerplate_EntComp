@@ -78,70 +78,31 @@ EC.RectProp.prototype = {
 
 }
 
-//--------------------------
-// The body handles physics
-//--------------------------
-EC.Body = function(properties) {
-    
+EC.CircleProp = function(properties) {
   this.entity = properties.entity;
-  this.velocity         = properties.velocity         || new EC.Vector2( );
-  this.rotationVelocity = properties.rotationVelocity || 0;
-  this.gravity          = properties.gravity          || new EC.Vector2( );
-  game.addUpdateObj(this);
-
+  this.color  = properties.color;
+  this.radius = properties.radius != null ? properties.radius : 16;
+  this.offset = properties.offset != null ? properties.offset : new EC.Vector2( 0, 0 );
+ 
+  game.addDrawObj(this, (properties.drawLayer != null ? properties.drawLayer : 4));
 }
 
-EC.Body.prototype = {
-    
-  update: function(dt) {
-    this.velocity.sub(this.gravity.clone().scale(dt));
-    this.entity.transform.position.add(this.velocity.clone().scale(dt).multiply(game.globalScale));
-    this.entity.transform.rotation += this.rotationVelocity * dt;
+EC.CircleProp.prototype = {
+
+  render: function(cvs, ctx) {
+    let position = this.entity.transform.position;
+    let rotation = this.entity.transform.rotation;
+    let scale = this.entity.transform.scale;
+    ctx.save();
+    ctx.beginPath();
+    ctx.fillStyle = this.color;
+    ctx.translate( position.x, position.y );
+    ctx.rotate( rotation*Math.PI/180 );
+    // ctx.fillRect(this.offset.x, this.offset.y, this.dimensions.x, this.dimensions.y);
+    ctx.arc(this.offset.x, this.offset.y, this.radius, 0, 2 * Math.PI, false);
+    ctx.fill();
+    ctx.closePath();
+    ctx.restore();
   },
 
-}
-
-//--------------------------
-// The collider handles, ehh, collisions
-//--------------------------
-EC.CircleCollider = function(entity, radius){
-
-  this.TYPE = EC.ColliderTypes.CIRCLE;
-
-  this.entity = entity;
-  this.radius = (radius != null ? radius : 16 * game.globalScale.x);
-
-  game.addCollider(this);
-}
-
-EC.CircleCollider.prototype = {
-
-  solve: function(collider) {
-    switch(collider.TYPE) {
-      case EC.ColliderTypes.CIRCLE:
-        solveCircle(collider);
-        break;
-      case EC.ColliderTypes.BOX:
-        solveBox(collider);
-        break;
-      default:
-        console.log("Implement collision for CircleCollider to " + collider.TYPE.toString());
-        break;
-    }
-  },
-
-  solveCircle: function(collider){
-    let distance = collider.entity.transform.position.distanceTo(this.entity.transform.position);
-    return distance < this.radius + collider.radius;
-  },
-
-  solveBox: function(collider){
-
-  },
-
-}
-
-EC.ColliderTypes = {
-  CIRCLE: 0,
-  BOX: 1,
 }

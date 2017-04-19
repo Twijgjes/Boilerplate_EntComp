@@ -9,9 +9,9 @@ EC.Creature = function(properties){
     scale: properties.scale || game.globalScale.clone()
   });
 
-  this.prop = new EC.RectProp({
+  this.prop = new EC.CircleProp({
     entity: this, 
-    dimensions: properties.dimensions || new EC.Vector2(5, 5),
+    radius: properties.radius || 5,
     color: properties.color || 'blue',
     drawLayer: properties.drawLayer || 2
   });

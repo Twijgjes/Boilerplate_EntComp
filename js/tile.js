@@ -35,7 +35,7 @@ EC.Tile = function(properties) {
 
   this.prop = new EC.RectProp({
   	entity: this, 
-  	dimensions: properties.dimensions || new EC.Vector2(10, 10),
+  	dimensions: properties.dimensions || new EC.Vector2(16, 16),
   	color: properties.color || 'gray',
   	drawLayer: properties.drawLayer || 1
   });

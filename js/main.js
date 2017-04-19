@@ -38,9 +38,6 @@ EC.Game = function(userSettings) {
   this.gameText = document.getElementById("game-text");
   this.gameButton = document.getElementById("game-button");
   this.pause = true;
-  // this.currentScore = 0;
-  // this.highScore = 0;
-  // this.punchBird;
 
   this.drawLayers = [
     new Array(),
@@ -90,6 +87,27 @@ EC.Game.prototype = {
     this.tileChunk = new EC.TileChunk(64);
     this.player = new EC.Creature();
     this.playerController = new EC.KeyboardController({ puppet: this.player });
+
+    // One would normally do this in a separate constructor
+    this.circleA = {};
+    this.circleA.transform = new EC.Transform({ entity: this.circleA, position: new EC.Vector2(100, 100) });
+    this.circleA.prop = new EC.CircleProp({ entity: this.circleA, color: 'red', radius: 50, offset: new EC.Vector2(0, 0) });
+    this.circleA.collider = new EC.CircleCollider({ entity: this.circleA, radius: 50 });
+
+    this.circleB = {};
+    this.circleB.transform = new EC.Transform({ entity: this.circleB, position: new EC.Vector2(200, 200) });
+    this.circleB.prop = new EC.CircleProp({ entity: this.circleB, color: 'green', radius: 50, offset: new EC.Vector2(0, 0) });
+    this.circleB.collider = new EC.CircleCollider({ entity: this.circleB, radius: 50 });
+
+    this.rectA = {};
+    this.rectA.transform = new EC.Transform({ entity: this.rectA, position: new EC.Vector2(400,400) });
+    this.rectA.prop = new EC.RectProp({ entity: this.rectA, color: 'blue', dimensions: new EC.Vector2(50,50) });
+    this.rectA.collider = new EC.BoxCollider({ entity: this.rectA, dimensions: new EC.Vector2(50,50) });
+
+    this.rectB = {};
+    this.rectB.transform = new EC.Transform({ entity: this.rectB, position: new EC.Vector2(450,450) });
+    this.rectB.prop = new EC.RectProp({ entity: this.rectB, color: 'yellow', dimensions: new EC.Vector2(50,50) });
+    this.rectB.collider = new EC.BoxCollider({ entity: this.rectB, dimensions: new EC.Vector2(50,50) });
     
     this.pause = false;
     this.update();
@@ -285,6 +303,14 @@ EC.Vector2.prototype = {
 
   clone: function(){
     return new EC.Vector2(this.x, this.y);
+  },
+
+  length: function(){
+    return Math.sqrt(this.x * this.x + this.y * this.y);
+  },
+
+  normalize: function(){
+    return this.scale(1 / this.length());
   },
 
   distanceTo: function(v){
